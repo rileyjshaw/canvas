@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Canvas from './Canvas';
 import Attractor from './physics/Attractor';
 import Node from './physics/Node';
-import './App.css';
+import './Hills.css';
 import {hsluvToHex} from 'hsluv';
 
 const WIDTH = 900;
@@ -30,7 +30,7 @@ function smoothCurveBetween(ctx, ball, prevBall) {
 }
 
 
-class App extends Component {
+class Hills extends Component {
   attractors = Array.from({length: 900}, (_, i) => {
     const x = Math.random() * WIDTH;
     const y = Math.random() * HEIGHT;
@@ -108,4 +108,4 @@ class App extends Component {
   }
 }
 
-export default App;
+export default Hills;
