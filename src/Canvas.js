@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 
 class Canvas extends Component {
   componentDidMount() {
-    const {setup, step} = this.props;
+    const {width, height, setup, step} = this.props;
+
+    this._canvas.style.width = width / 2 + 'px';
+    this._canvas.style.height = height / 2 + 'px';
 
     if (setup) {
       setup(this._canvas.getContext('2d'), 0);
