@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Hair from './Hair';
+import Simulation from './Hair';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Hair />, document.getElementById('root'));
+ReactDOM.render(<Simulation />, document.getElementById('root'));
 registerServiceWorker();

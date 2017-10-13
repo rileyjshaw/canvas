@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Canvas from './Canvas';
 import SimplexNoise from 'simplex-noise';
 
-const WIDTH = 900;
-const HEIGHT = 600;
+const WIDTH = 1000;
+const HEIGHT = 1000;
 const SPACING_PX = 5;
 const HAIR_LENGTH_PX = 20;
 const DIMENSIONALITY = 2;
