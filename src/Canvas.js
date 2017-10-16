@@ -12,6 +12,7 @@ class Canvas extends Component {
     }
 
     if (step) {
+      this._i = 0;
       this._animationFrame = window.requestAnimationFrame(this.step);
     }
   }
@@ -22,7 +23,7 @@ class Canvas extends Component {
 
   step = (t) => {
     const {step} = this.props;
-    this._canvas && step(this._canvas.getContext('2d'), t);
+    this._canvas && step(this._canvas.getContext('2d'), t, this._i++);
     this._animationFrame = window.requestAnimationFrame(this.step);
   }
 
