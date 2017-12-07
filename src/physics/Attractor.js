@@ -1,6 +1,6 @@
-import Node from './Node';
+import Particle from './Particle';
 
-class Attractor extends Node {
+class Attractor extends Particle {
   constructor(x, y, strength, radius, velocity, bounce) {
     super(x, y, velocity, bounce);
     this.strength = strength;

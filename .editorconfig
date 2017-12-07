@@ -11,4 +11,3 @@ indent_size = 2
 # Set default charset
 [*.{js}]
 charset = utf-8
-

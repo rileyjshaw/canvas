@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Canvas from './Canvas';
 import Attractor from './physics/Attractor';
-import Node from './physics/Node';
+import Particle from './physics/Particle';
 import './Hills.css';
 import {hsluvToHex} from 'hsluv';
 
@@ -40,14 +40,13 @@ class Hills extends Component {
   balls = Array.from({length: WIDTH * HEIGHT}, (_, i) => {
     const x = i % WIDTH;
     const y = Math.floor(i / WIDTH);
-    return new Node(x, y);
+    return new Particle(x, y);
   });
 
   setup = (ctx) => {
     ctx.fillStyle = '#fff';
     for (let i = 0; i < 4; ++i) {
       window.requestAnimationFrame(() => {
-        console.log(i, new Date());
         this.step(ctx, 0);
       });
     }
@@ -72,29 +71,27 @@ class Hills extends Component {
     });
 
     if (draw) {
-    console.log('drawing!');
-    this.balls.forEach((ball, i) => {
-      const prevBall = this.balls[i - 1];
+      this.balls.forEach((ball, i) => {
+        const prevBall = this.balls[i - 1];
 
-      if (!((i) % WIDTH)) {
-        if (i) {
-          // ctx.fillStyle = hsluvToHex([Math.floor(i / 10) % 360, 100, 60]);
+        if (!((i) % WIDTH)) {
+          if (i) {
+            // ctx.fillStyle = hsluvToHex([Math.floor(i / 10) % 360, 100, 60]);
 
-          smoothCurveBetween(ctx, {x: WIDTH, y: prevBall.y}, prevBall);
-          ctx.lineTo(WIDTH_PX, HEIGHT_PX);
-          ctx.lineTo(0, HEIGHT_PX);
-          ctx.fillStyle = (Math.floor(i / WIDTH) % 2) ? '#fff' : '#000';
-          ctx.fill();
-          ctx.stroke();
-          console.log(prevBall.y);
+            smoothCurveBetween(ctx, {x: WIDTH, y: prevBall.y}, prevBall);
+            ctx.lineTo(WIDTH_PX, HEIGHT_PX);
+            ctx.lineTo(0, HEIGHT_PX);
+            ctx.fillStyle = (Math.floor(i / WIDTH) % 2) ? '#fff' : '#000';
+            ctx.fill();
+            ctx.stroke();
+          }
+          ctx.beginPath();
+          ctx.moveTo(0, ball.y * SPACING_PX);
+          return;
         }
-        ctx.beginPath();
-        ctx.moveTo(0, ball.y * SPACING_PX);
-        return;
-      }
 
-      smoothCurveBetween(ctx, ball, prevBall);
-    });
+        smoothCurveBetween(ctx, ball, prevBall);
+      });
     }
   }
 

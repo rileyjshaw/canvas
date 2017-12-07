@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Canvas from './Canvas';
-import Node from './physics/Node';
+import Particle from './physics/Particle';
 
 const WIDTH_PX = 1000;
 const HEIGHT_PX = 1000;
@@ -9,7 +9,7 @@ const RESET_I = 150;
 class Hills extends Component {
   agents = Array.from({length: 160}, () => {
     const red = Math.round(Math.random() * 255);
-    const agent = new Node(WIDTH_PX / 2, HEIGHT_PX / 2);
+    const agent = new Particle(WIDTH_PX / 2, HEIGHT_PX / 2);
     agent.angle = Math.random() * 2 * Math.PI;
 
     agent.color = `rgb(${355 - red}, ${255 - red}, 255)`;

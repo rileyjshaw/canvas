@@ -1,7 +1,7 @@
 // With branching
 import React, {Component} from 'react';
 import Canvas from './Canvas';
-import Node from './physics/Node';
+import Particle from './physics/Particle';
 import './Middle.css';
 
 const WIDTH_PX = 1500;
@@ -11,7 +11,7 @@ const RESET_I = 150;
 class Hills extends Component {
   agents = Array.from({length: 7}, () => {
     const red = Math.round(Math.random() * 255);
-    const agent = new Node(WIDTH_PX / 2, HEIGHT_PX / 2);
+    const agent = new Particle(WIDTH_PX / 2, HEIGHT_PX / 2);
     agent.angle = Math.random() * 2 * Math.PI;
     agent.color = `rgb(${red}, ${red}, ${red - 40})`;
     return agent;
@@ -45,7 +45,7 @@ class Hills extends Component {
       ctx.stroke();
 
       if (Math.random() < 0.024) {
-        const branch = new Node(agent.x, agent.y);
+        const branch = new Particle(agent.x, agent.y);
         branch.color = agent.color;
         branch.angle = agent.angle;
         this.branches.push(branch);
