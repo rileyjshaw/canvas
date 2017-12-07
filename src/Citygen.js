@@ -12,7 +12,7 @@ const SIZE_PX = 9;
 const MAX_AGE = 500;
 const MIN_DIST = 1;  // Between worms.
 const MIN_INITIAL_DIST = 8;  // Between worms.
-const MAX_WORM_LENGTH = 20;
+const MAX_WORM_LENGTH = 40;
 
 // Computed.
 const W_PX = W * SIZE_PX;
@@ -90,7 +90,7 @@ export default class Gridwormz extends Component {
     ctx.clearRect(0, 0, W_PX, H_PX);
 
     worms.forEach((worm, i) => {
-      if (worm.length > MAX_WORM_LENGTH) return;
+      if (worm.bits.length > MAX_WORM_LENGTH) return;
 
       const rand = Math.random();
       // A new direction that we might use to turn or branch the worm.

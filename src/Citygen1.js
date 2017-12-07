@@ -90,7 +90,7 @@ export default class Gridwormz extends Component {
     ctx.clearRect(0, 0, W_PX, H_PX);
 
     worms.forEach((worm, i) => {
-      if (worm.length > MAX_WORM_LENGTH) return;
+      if (worm.bits.length > MAX_WORM_LENGTH) return;
 
       const rand = Math.random();
       // A new direction that we might use to turn or branch the worm.

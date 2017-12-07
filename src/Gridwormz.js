@@ -3,13 +3,13 @@ import Canvas from './Canvas';
 import Node from './physics/Node';
 import './Middle.css';
 
-const W = 200;
-const H = 200;
-const SIZE_PX = 9;
-const MAX_AGE = 200;
+const W = 20;
+const H = 20;
+const SIZE_PX = 60;
+const MAX_AGE = 400;
 const MIN_DIST = 1;  // Between worms.
-const MIN_INITIAL_DIST = 8;  // Between worms.
-const MAX_WORM_LENGTH = 20;
+const MIN_INITIAL_DIST = 1;  // Between worms.
+const MAX_WORM_LENGTH = 6;
 
 // Computed.
 const W_PX = W * SIZE_PX;
@@ -88,7 +88,7 @@ export default class Gridwormz extends Component {
     ctx.clearRect(0, 0, W_PX, H_PX);
 
     worms.forEach((worm, i) => {
-      if (worm.length > MAX_WORM_LENGTH) return;
+      if (worm.bits.length >= MAX_WORM_LENGTH) return;
 
       const rand = Math.random();
       // A new direction that we might use to turn or branch the worm.
@@ -115,7 +115,7 @@ export default class Gridwormz extends Component {
       }
     });
 
-    Math.random() < 0.02 && this.addARandomWormLol(day);
+    this.addARandomWormLol(day);
     this.pruneWorms(day);
     this.drawWorms(ctx);
   }
@@ -126,9 +126,7 @@ export default class Gridwormz extends Component {
         direction: worm.direction,
         bits: worm.bits.filter(bit => bit.expiry > day),
       }))
-      .filter(({bits}) => {
-        return bits.length > 1 || (bits[0] && bits[0].expiry === day + MAX_AGE);
-      });
+      .filter(({bits}) => bits.length > 0);
   }
 
   drawWorms(ctx) {
