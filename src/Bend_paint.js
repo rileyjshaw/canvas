@@ -41,7 +41,7 @@ export default class Bend extends Component {
     const d = random() + random();
     const r = R * (d > 1 ? 2 - d : d);
     return [C + r * cos(angle), C + r * sin(angle),
-      `hsla(${ri(60)}, 95%, 70%, ${OPACITY})`];
+      `hsla(${ri(360)}, 95%, 70%, ${OPACITY})`];
   })
 
   setup = ctx => {
