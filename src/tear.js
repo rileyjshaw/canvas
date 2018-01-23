@@ -17,7 +17,6 @@ const H = 16 * CANVAS_SCALE;
 const W = 16 * CANVAS_SCALE;
 const simplex = new SimplexNoise(random);
 
-
 const canvas1 = document.createElement('canvas');
 const canvas2 = document.createElement('canvas');
 const ctx1 = canvas1.getContext('2d');
@@ -29,6 +28,7 @@ export default class GlassWindow extends Component {
   state = {image: null}
 
   fillCtx(ctx) {
+    // ctx.fillStyle = '#000';
     // ctx.fillRect(0, 0, W, H);
     ctx.drawImage(this.state.image, 0, 0, W, H);
   }
@@ -36,6 +36,8 @@ export default class GlassWindow extends Component {
   setup = ctx => {
     this.fillCtx(ctx);
 
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.01)';
+    ctx.fillRect(0, 0, W, H);
     ctx1.strokeStyle = ctx2.strokeStyle = '#fff';
     ctx1.lineWidth = ctx2.lineWidth = LINE_WIDTH;
     ctx1.canvas.className = 'ctx1';
@@ -115,11 +117,20 @@ export default class GlassWindow extends Component {
     ctx2.clearRect(0, 0, W, H);
     ctx2.restore();
 
+    const mainRotation = PI * (random() * 2 - 1) / 30;
     ctx.save();
-    ctx.rotate(PI * (random() * 2 - 1) / 100);
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate(mainRotation);
+    ctx.translate(-W / 2, -H / 2);
     isOdd ? ctx.translate(SPREAD, 0) : ctx.translate(0, SPREAD);
     ctx.drawImage(ctx1.canvas, 0, 0);
-    ctx.rotate(PI * (random() * 2 - 1) / 100);
+    ctx.restore();
+
+    ctx.save();
+    ctx.translate(W / 2, H / 2);
+    ctx.rotate(mainRotation + PI * (random() * 2 - 1) / 50);
+    ctx.translate(-W / 2, -H / 2);
+
     isOdd ? ctx.translate(-SPREAD * 2, 0) : ctx.translate(0, -SPREAD * 2);
     ctx.drawImage(ctx2.canvas, 0, 0);
     ctx.restore();
