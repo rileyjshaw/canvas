@@ -1,0 +1,20 @@
+.moireWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: moireX 4s -4s ease-in-out infinite alternate;
+}
+
+.moire {
+  animation: moireY 4s -2s ease-in-out infinite alternate;
+}
+
+@keyframes moireX {
+    from {transform: translate(4%, 0);}
+    to {transform: translate(-4%, 0);}
+}
+
+@keyframes moireY {
+    from {transform: translate(0, 4%);}
+    to {transform: translate(0, -4%);}
+}

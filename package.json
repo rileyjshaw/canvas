@@ -4,8 +4,10 @@
   "private": true,
   "homepage": "http://rileyjshaw.github.io/canvas",
   "dependencies": {
+    "angles": "^0.2.0",
     "average-color": "^2.0.2",
     "d3-path": "^1.0.5",
+    "fast-uniform-noise": "0.0.6",
     "hsluv": "0.0.1",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
