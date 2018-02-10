@@ -34,7 +34,7 @@ class Hills extends Component {
   attractors = Array.from({length: 900}, (_, i) => {
     const x = Math.random() * WIDTH;
     const y = Math.random() * HEIGHT;
-    return new Attractor(x, y, 3 * (Math.random() / 0.9 - 1), 80);
+    return new Attractor(x, y, 3 * (Math.random() / 0.9 - 1), 80, [120, 70]);
   });
 
   balls = Array.from({length: WIDTH * HEIGHT}, (_, i) => {
