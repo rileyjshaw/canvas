@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Canvas from './Canvas';
 import SimplexNoise from 'simplex-noise';
 import Node from './physics/Node';
+import './Middle.css';
 
 const {abs, random, cos, sin, PI} = Math;
 

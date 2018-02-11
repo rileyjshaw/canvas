@@ -7,10 +7,10 @@ document.body.style.background = '#000';
 
 const {min, max, cos, sin, sqrt, PI} = Math;
 
-const N_AGENTS = 200;
+const N_AGENTS = 400;
 const SIZE_PX = 5000;
 const PATH_R_PX = 600;
-const INITIAL_R_PX = 1000;
+const INITIAL_R_PX = 2000;
 const PERIOD_MS = 1000;
 const GRAVITY = 200;
 const MAX_V = 4;
@@ -38,10 +38,9 @@ export default class VecField extends Component {
     const targetX = CENTER_PX + PATH_R_PX * cos(t / PERIOD_MS * 2 * PI);
     const targetY = CENTER_PX + PATH_R_PX * sin(t / PERIOD_MS * 2 * PI);
 
-    // Debug.
+    // // Debug.
     // ctx.beginPath();
     // ctx.arc(targetX, targetY, 40, 0, 2 * PI);
-    // ctx.fillStyle = '#fff';
     // ctx.fill();
 
     this.agents.forEach(agent => {
@@ -65,6 +64,11 @@ export default class VecField extends Component {
       // ctx.stroke();
       ctx.strokeStyle = `rgba(${lightness - fadeShift}, ${lightness - fadeShift}, ${lightness - fadeShift}, 0.2)`;
       ctx.lineWidth = 2;
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(SIZE_PX - x, y);
+      ctx.lineTo(SIZE_PX - agent.x, agent.y);
       ctx.stroke();
     });
   }
