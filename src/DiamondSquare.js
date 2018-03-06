@@ -6,22 +6,19 @@ import SimplexNoise from 'simplex-noise'
 import averageColor from 'average-color'
 import {hpluvToHex, hexToHpluv} from 'hsluv'
 
-const {ceil, floor, max, min, pow, random, round, sqrt} = Math
+const {floor, max, min, pow, random, round, sqrt} = Math
 const simplex = new SimplexNoise(random)
 
 const SIZE_PX = 4000
 const INITIAL_OFFSET_PX = 400
-const DETAIL = 10
+const DETAIL = 9
 const MIN_SATURATION = 25
 const MAX_SATURATION = 75
 const MIN_LIGHTNESS = 40
 const MAX_LIGHTNESS = 80
-const CHAOS = 5 / 8
+const CHAOS = 4 / 8
 
 // Derived.
-const D_H = 360
-const D_S = MAX_SATURATION - MIN_SATURATION
-const D_L = MAX_LIGHTNESS - MIN_LIGHTNESS
 const SQUARE_GRID_SIZE = pow(2, DETAIL)
 const OFFSET_GRID_SIZE = SQUARE_GRID_SIZE + 1
 const MARGIN_PX = INITIAL_OFFSET_PX * 2
@@ -93,45 +90,6 @@ export default class DiamondSquare extends Component {
     }
 
     let i = 2
-    while (this.colors.length < SQUARE_GRID_SIZE) {
-      this.colors = Array.from({length: this.colors.length * 2}, (_, y) => {
-        return Array.from({length: this.colors.length * 2}, (_, x) => {
-          const x0 = floor(x / 2)
-          const y0 = floor(y / 2)
-          const rando = [random() * 360, rib(MIN_SATURATION, MAX_SATURATION), rib(MIN_LIGHTNESS, MAX_LIGHTNESS)]
-          const parent = this.colors[x0][y0]
-          const neighbors = []
-
-          // Quilt!
-          // let newH = parent[0] + off(D_H / pow(2, i))
-          // let newS = parent[1] + off(D_S / pow(2, i))
-          // let newL = parent[2] + off(D_L / pow(2, i))
-
-          // Other quilt!
-          for (let dY = -1; dY <= 1; dY += 1) {
-            for (let dX = -3; dX <= 3; dX += 1) {
-              const row = this.colors[y0 + dY];
-              if (row) {
-                const color = row[x0 + dX]
-                neighbors.push(random() < 0.4 ? parent : rando)
-                for (let z = 1; color && (z < sqrt(i)); ++z) {
-                  neighbors.push(color)
-                }
-              }
-            }
-          }
-          let [newH, newS, newL] = averageColor(neighbors)
-
-          newH = round(newH % 360)
-          newS = round(min(max(newS, MIN_SATURATION), MAX_SATURATION))
-          newL = round(min(max(newL, MIN_LIGHTNESS), MAX_LIGHTNESS))
-
-          return [newH, newS, newL]
-        })
-      })
-      ++i
-    }
-
     let y = 0
     const drawRow = () => {
       for (let x = 0; x < SQUARE_GRID_SIZE; ++x) {
@@ -156,7 +114,50 @@ export default class DiamondSquare extends Component {
 
       if (++y < SQUARE_GRID_SIZE) requestAnimationFrame(drawRow)
     }
-    drawRow()
+
+    const precalculate = () => {
+      if (this.colors.length < SQUARE_GRID_SIZE) {
+        console.log('Starting layer ' + i)
+        this.colors = Array.from({length: this.colors.length * 2}, (_, y) => {
+          return Array.from({length: this.colors.length * 2}, (_, x) => {
+            const x0 = floor(x / 2)
+            const y0 = floor(y / 2)
+            const rando = [random() * 360, rib(MIN_SATURATION, MAX_SATURATION), rib(MIN_LIGHTNESS, MAX_LIGHTNESS)]
+            const parent = this.colors[x0][y0]
+            const neighbors = []
+
+            // Quilt!
+            // let newH = parent[0] + off(D_H / pow(2, i))
+            // let newS = parent[1] + off(D_S / pow(2, i))
+            // let newL = parent[2] + off(D_L / pow(2, i))
+
+            // Other quilt!
+            for (let dY = -1; dY <= 1; dY += 1) {
+              for (let dX = -3; dX <= 3; dX += 1) {
+                const row = this.colors[y0 + dY];
+                if (row) {
+                  const color = row[x0 + dX]
+                  neighbors.push(random() < 0.4 ? parent : rando)
+                  for (let z = 1; color && (z < sqrt(i)); ++z) {
+                    neighbors.push(color)
+                  }
+                }
+              }
+            }
+            let [newH, newS, newL] = averageColor(neighbors)
+
+            newH = round(newH % 360)
+            newS = round(min(max(newS, MIN_SATURATION), MAX_SATURATION))
+            newL = round(min(max(newL, MIN_LIGHTNESS), MAX_LIGHTNESS))
+
+            return [newH, newS, newL]
+          })
+        })
+        ++i
+        window.setTimeout(precalculate, 0)
+      } else drawRow()
+    }
+    precalculate();
 
     function square(x, y, size, offset) {
       const neighbors = [
