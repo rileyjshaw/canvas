@@ -31,7 +31,7 @@ function pointsFrom(p1, p2) {
 export default class Bend extends Component {
   componentDidMount() {
     const script = document.createElement('script');
-    script.src = 'http://cdn.jsdelivr.net/terra/1.5.0-beta/mainfile';
+    script.src = 'https://cdn.jsdelivr.net/terra/1.5.0-beta/mainfile';
     script.async = false;
     document.head.insertBefore(script, document.head.firstChild);
 
