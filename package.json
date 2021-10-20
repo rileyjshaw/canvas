@@ -2,7 +2,7 @@
   "name": "canvas",
   "version": "0.1.0",
   "private": true,
-  "homepage": "/canvas/vectorfield2-pen",
+  "homepage": "/canvas/tear",
   "dependencies": {
     "angles": "^0.2.0",
     "average-color": "^2.0.2",

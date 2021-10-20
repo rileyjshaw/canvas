@@ -146,7 +146,7 @@ export default class GlassWindow extends Component {
         alt=''
         height={H}
         onLoad={this.handleImageLoaded}
-        src='https://fabriccreative.com/wp-content/uploads/2014/05/grace-face-1.jpg'
+        src='./face.jpg'  // Photo by Daniil Lebedev (@n0plex) on Unsplash: https://unsplash.com/s/photos/face
         style={{display: 'none'}}
         width={W}
       />

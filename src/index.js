@@ -1,8 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Simulation from './vectorfield2_pen';
+import App from './tear';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<Simulation />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 registerServiceWorker();
